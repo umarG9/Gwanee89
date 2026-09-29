@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gwanee89</title>
+<style>body{font-family:sans-serif;background:#000;color:#fff;text-align:center;padding:20px}input,select,button{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none}button{background:#00ff88;color:#000;font-weight:bold}.card{background:#111;padding:15px;border-radius:12px;margin:10px 0}</style>
+</head><body>
+<h1>Gwanee89</h1><p>Umar Hadi Gwani | 7012869066 OPay</p>
+<div id="login"><input id="phone" placeholder="Saka Number 080..."><button onclick="login()">Shiga Gwanee89</button></div>
+<div id="app" style="display:none"><h2 id="welcome"></h2>
+<div class="card"><h3>Sayan DATA</h3><select id="net"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><select id="plan"><option value="500">1GB - N500</option><option value="1000">2GB - N1000</option><option value="2000">5GB - N2000</option></select><button onclick="buyData()">Saya Data</button></div>
+<div class="card"><h3>Sayan AIRTIME</h3><select id="net2"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><input id="amt" placeholder="Nawa? 500"><button onclick="buyAirtime()">Saya Airtime</button></div>
+</div>
+<script>
+let myPhone='';
+async function login(){myPhone=document.getElementById('phone').value;let r=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:myPhone})});let d=await r.json();if(d.success){document.getElementById('login').style.display='none';document.getElementById('app').style.display='block';document.getElementById('welcome').innerText=d.message}}
+async function buyData(){let n=document.getElementById('net').value,p=document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text,a=document.getElementById('plan').value;let r=await fetch('/api/buy-data',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:myPhone,network:n,plan:p,amount:a})});let d=await r.json();alert(d.message)}
+async function buyAirtime(){let n=document.getElementById('net2').value,a=document.getElementById('amt').value;let r=await fetch('/api/buy-airtime',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:myPhone,network:n,amount:a})});let d=await r.json();alert(d.message)}
+</script></body></html>
